@@ -42,7 +42,7 @@
     "npm:@langchain/ollama@~0.2.1": "0.2.1_@langchain+core@0.3.37__zod@3.24.1__openai@4.82.0___zod@3.24.1_zod@3.24.1",
     "npm:@langchain/openai@~0.4.2": "0.4.2_@langchain+core@0.3.37__zod@3.24.1__openai@4.82.0___zod@3.24.1_zod@3.24.1_openai@4.82.0__zod@3.24.1",
     "npm:@types/node@*": "18.19.70",
-    "npm:chardet@2": "2.0.0",
+    "npm:chardet@2.1.1": "2.1.1",
     "npm:cheerio@1.2.0": "1.2.0",
     "npm:cheerio@^1.0.0-rc.12": "1.2.0",
     "npm:iconv-lite@~0.6.3": "0.6.3",
@@ -350,8 +350,8 @@
         "supports-color"
       ]
     },
-    "chardet@2.0.0": {
-      "integrity": "sha512-xVgPpulCooDjY6zH4m9YW3jbkaBe3FKIAvF5sj5t7aBNsVl2ljIE+xwJ4iNgiDZHFQvNIpjdKdVOQvvk5ZfxbQ=="
+    "chardet@2.1.1": {
+      "integrity": "sha512-PsezH1rqdV9VvyNhxxOW32/d75r01NY7TQCmOqomRo15ZSOKbpTFVsfjghxo6JloQUCGnH4k1LGu0R4yCLlWQQ=="
     },
     "cheerio-select@2.1.0": {
       "integrity": "sha512-9v9kG0LvzrlcungtnJtpGNxY+fzECQKhK4EGJX2vByejiMX84MFNQw4UxPJl3bFbTMw+Dfs37XaIkCwTZfLh4g==",
@@ -734,7 +734,7 @@
       "npm:@langchain/google-genai@~0.1.8",
       "npm:@langchain/ollama@~0.2.1",
       "npm:@langchain/openai@~0.4.2",
-      "npm:chardet@2",
+      "npm:chardet@2.1.1",
       "npm:cheerio@1.2.0",
       "npm:iconv-lite@~0.6.3",
       "npm:tinyld@^1.3.4",
