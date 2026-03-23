@@ -14,7 +14,11 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 import { strictEqual } from "node:assert/strict";
-import { testModel } from "./models.ts";
+import {
+  getProviderModelName,
+  resolveModelMoniker,
+  testModel,
+} from "./models.ts";
 
 Deno.test("testModel accepts text from standardized content blocks", async () => {
   const working = await testModel({
@@ -29,4 +33,13 @@ Deno.test("testModel accepts text from standardized content blocks", async () =>
   });
 
   strictEqual(working, true);
+});
+
+Deno.test("resolveModelMoniker normalizes deprecated aliases", () => {
+  strictEqual(resolveModelMoniker("chatgpt-4o-latest"), "gpt-5.1-chat-latest");
+  strictEqual(resolveModelMoniker("gpt-4o"), "gpt-4o");
+  strictEqual(
+    getProviderModelName("gpt-5.1-chat-latest"),
+    "gpt-5.1-chat-latest",
+  );
 });

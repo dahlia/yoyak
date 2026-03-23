@@ -14,7 +14,11 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 import { authoritativeLabels, type LanguageCode } from "@hongminhee/iso639-1";
-import { HumanMessage, SystemMessage } from "@langchain/core/messages";
+import {
+  type BaseMessage,
+  HumanMessage,
+  SystemMessage,
+} from "@langchain/core/messages";
 import { getLogger } from "@logtape/logtape";
 import { getMessageText } from "./model_text.ts";
 import type { ModelLike } from "./models.ts";
@@ -122,7 +126,7 @@ export async function* summarize(
   text: string,
   options: SummarizeOptions = {},
 ): AsyncIterable<string> {
-  const messages = [
+  const messages: BaseMessage[] = [
     new SystemMessage(
       getPrompt(Math.max(1, options.paragraphs ?? 1), options.targetLanguage),
     ),

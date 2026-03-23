@@ -17,7 +17,11 @@ import { getLogger } from "@logtape/logtape";
 import { dirname, join } from "@std/path";
 import { parse, stringify } from "@std/toml";
 import { homedir } from "node:os";
-import { isModelMoniker, type ModelMoniker } from "./models.ts";
+import {
+  type CanonicalModelMoniker,
+  isModelMoniker,
+  resolveModelMoniker,
+} from "./models.ts";
 
 const logger = getLogger(["yoyak", "settings"]);
 
@@ -28,7 +32,7 @@ export interface Settings {
   /**
    * The large language model to use for summarization and translation.
    */
-  readonly model: ModelMoniker;
+  readonly model: CanonicalModelMoniker;
 
   /**
    * The API key for the large language model.
@@ -92,7 +96,7 @@ export async function loadSettings(): Promise<Settings | undefined> {
     return undefined;
   }
   return {
-    model: config.llm.model,
+    model: resolveModelMoniker(config.llm.model),
     apiKey: config.llm.apiKey,
   };
 }

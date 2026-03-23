@@ -31,3 +31,27 @@ Deno.test("settings round-trip via XDG config home", async () => {
     await Deno.remove(tempDir, { recursive: true });
   }
 });
+
+Deno.test("settings load normalizes deprecated model aliases", async () => {
+  const tempDir = await Deno.makeTempDir();
+  const previous = Deno.env.get("XDG_CONFIG_HOME");
+
+  try {
+    Deno.env.set("XDG_CONFIG_HOME", tempDir);
+    const configDir = `${tempDir}/yoyak`;
+    await Deno.mkdir(configDir, { recursive: true });
+    await Deno.writeTextFile(
+      `${configDir}/yoyak.toml`,
+      '[llm]\nmodel = "chatgpt-4o-latest"\napiKey = "secret"\n',
+    );
+    const settings = await loadSettings();
+    deepStrictEqual(settings, {
+      model: "gpt-5.1-chat-latest",
+      apiKey: "secret",
+    });
+  } finally {
+    if (previous == null) Deno.env.delete("XDG_CONFIG_HOME");
+    else Deno.env.set("XDG_CONFIG_HOME", previous);
+    await Deno.remove(tempDir, { recursive: true });
+  }
+});

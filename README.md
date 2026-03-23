@@ -34,7 +34,7 @@ running the following command (see also [supported models](#supported-models)
 below):
 
 ~~~~ bash
-yoyak set-model gemini-2.0-flash-exp
+yoyak set-model gemini-2.5-flash
 ~~~~
 
 It asks for the API key via the standard input, and stores it in configuration
@@ -107,33 +107,28 @@ yoyak completions zsh > /usr/local/share/zsh/site-functions/_yoyak
 Supported models
 ----------------
 
- -  `chatgpt-4o-latest`
  -  `claude-3-5-haiku-latest`
  -  `claude-3-5-sonnet-latest`
  -  `claude-3-7-sonnet-latest`
- -  `claude-3-opus-latest`
+ -  `claude-opus-4-0`
+ -  `claude-opus-4-1-20250805`
+ -  `claude-sonnet-4-0`
  -  `deepseek-chat`
  -  `deepseek-reasoner`
- -  `gemini-1.5-flash-8b`
- -  `gemini-1.5-flash`
- -  `gemini-1.5-pro`
- -  `gemini-2.0-flash-exp`
- -  `gemini-2.0-flash-lite-preview-02-05`
- -  `gemini-2.0-flash-lite`
- -  `gemini-2.0-flash-thinking-exp-01-21`
  -  `gemini-2.0-flash`
- -  `gemini-2.0-pro-exp-02-05`
- -  `gemini-2.5-flash-preview-04-17`
- -  `gemini-2.5-pro-preview-03-25`
+ -  `gemini-2.0-flash-lite`
+ -  `gemini-2.5-flash`
+ -  `gemini-2.5-flash-lite`
+ -  `gemini-2.5-pro`
  -  `gemma3`
  -  `gpt-4.1`
- -  `gpt-4.5-preview`
- -  `gpt-4o-mini`
  -  `gpt-4o`
- -  `o1-mini`
- -  `o1-preview`
- -  `o1`
- -  `o3-mini`
+ -  `gpt-4o-mini`
+ -  `gpt-5`
+ -  `gpt-5-mini`
+ -  `gpt-5-nano`
+ -  `gpt-5.1`
+ -  `gpt-5.1-chat-latest`
  -  `o3`
  -  `o4-mini`
 

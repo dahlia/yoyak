@@ -25,42 +25,95 @@ import { getMessageText, type MessageLike } from "./model_text.ts";
 const logger = getLogger(["yoyak", "models"]);
 
 /**
- * The list of available models.
+ * The list of canonical model names to advertise and persist.
  */
-export const modelMonikers = [
-  "chatgpt-4o-latest",
+export const canonicalModelMonikers = [
   "claude-3-5-haiku-latest",
   "claude-3-5-sonnet-latest",
   "claude-3-7-sonnet-latest",
-  "claude-3-opus-latest",
+  "claude-opus-4-0",
+  "claude-opus-4-1-20250805",
+  "claude-sonnet-4-0",
   "deepseek-chat",
   "deepseek-reasoner",
+  "gemini-2.0-flash",
+  "gemini-2.0-flash-lite",
+  "gemini-2.5-flash",
+  "gemini-2.5-flash-lite",
+  "gemini-2.5-pro",
+  "gemma3",
+  "gpt-4.1",
+  "gpt-4o",
+  "gpt-4o-mini",
+  "gpt-5",
+  "gpt-5-mini",
+  "gpt-5-nano",
+  "gpt-5.1",
+  "gpt-5.1-chat-latest",
+  "o3",
+  "o4-mini",
+] as const;
+
+/**
+ * The canonical string representation of a model.
+ */
+export type CanonicalModelMoniker = typeof canonicalModelMonikers[number];
+
+/**
+ * Model names kept for backward compatibility.
+ */
+export const deprecatedModelMonikers = [
+  "chatgpt-4o-latest",
+  "claude-3-opus-latest",
   "gemini-1.5-flash",
   "gemini-1.5-flash-8b",
   "gemini-1.5-pro",
-  "gemini-2.0-flash",
   "gemini-2.0-flash-exp",
-  "gemini-2.0-flash-lite",
   "gemini-2.0-flash-lite-preview-02-05",
   "gemini-2.0-flash-thinking-exp-01-21",
   "gemini-2.0-pro-exp-02-05",
   "gemini-2.5-flash-preview-04-17",
   "gemini-2.5-pro-preview-03-25",
-  "gemma3",
-  "gpt-4.1",
   "gpt-4.5-preview",
-  "gpt-4o",
-  "gpt-4o-mini",
   "o1",
   "o1-mini",
   "o1-preview",
-  "o3",
   "o3-mini",
-  "o4-mini",
+] as const;
+
+export type DeprecatedModelMoniker = typeof deprecatedModelMonikers[number];
+
+export const deprecatedModelAliases: Readonly<
+  Record<DeprecatedModelMoniker, CanonicalModelMoniker>
+> = {
+  "chatgpt-4o-latest": "gpt-5.1-chat-latest",
+  "claude-3-opus-latest": "claude-opus-4-0",
+  "gemini-1.5-flash": "gemini-2.5-flash",
+  "gemini-1.5-flash-8b": "gemini-2.5-flash-lite",
+  "gemini-1.5-pro": "gemini-2.5-pro",
+  "gemini-2.0-flash-exp": "gemini-2.0-flash",
+  "gemini-2.0-flash-lite-preview-02-05": "gemini-2.5-flash-lite",
+  "gemini-2.0-flash-thinking-exp-01-21": "gemini-2.5-flash",
+  "gemini-2.0-pro-exp-02-05": "gemini-2.5-pro",
+  "gemini-2.5-flash-preview-04-17": "gemini-2.5-flash",
+  "gemini-2.5-pro-preview-03-25": "gemini-2.5-pro",
+  "gpt-4.5-preview": "gpt-4.1",
+  "o1": "o3",
+  "o1-mini": "o4-mini",
+  "o1-preview": "o3",
+  "o3-mini": "o4-mini",
+} as const;
+
+/**
+ * The list of accepted model names.
+ */
+export const modelMonikers = [
+  ...canonicalModelMonikers,
+  ...deprecatedModelMonikers,
 ] as const;
 
 /**
- * The short string representation of a model.
+ * The accepted string representation of a model.
  */
 export type ModelMoniker = typeof modelMonikers[number];
 
@@ -99,40 +152,144 @@ export type ModelClass = new (
   ...args: unknown[]
 ) => ModelLike;
 
+function asModelClass(modelClass: unknown): ModelClass {
+  return modelClass as ModelClass;
+}
+
 /**
- * The map of model monikers to model constructors.
+ * The per-model provider configuration.
  */
-export const modelClasses: Record<ModelMoniker, unknown> = {
-  "chatgpt-4o-latest": ChatOpenAI,
-  "claude-3-5-haiku-latest": ChatAnthropic,
-  "claude-3-5-sonnet-latest": ChatAnthropic,
-  "claude-3-7-sonnet-latest": ChatAnthropic,
-  "claude-3-opus-latest": ChatAnthropic,
-  "deepseek-chat": ChatDeepSeek,
-  "deepseek-reasoner": ChatDeepSeek,
-  "gemini-1.5-flash": ChatGoogleGenerativeAI,
-  "gemini-1.5-flash-8b": ChatGoogleGenerativeAI,
-  "gemini-1.5-pro": ChatGoogleGenerativeAI,
-  "gemini-2.0-flash": ChatGoogleGenerativeAI,
-  "gemini-2.0-flash-exp": ChatGoogleGenerativeAI,
-  "gemini-2.0-flash-lite": ChatGoogleGenerativeAI,
-  "gemini-2.0-flash-lite-preview-02-05": ChatGoogleGenerativeAI,
-  "gemini-2.0-flash-thinking-exp-01-21": ChatGoogleGenerativeAI,
-  "gemini-2.0-pro-exp-02-05": ChatGoogleGenerativeAI,
-  "gemini-2.5-flash-preview-04-17": ChatGoogleGenerativeAI,
-  "gemini-2.5-pro-preview-03-25": ChatGoogleGenerativeAI,
-  "gemma3": ChatOllama,
-  "gpt-4.1": ChatOpenAI,
-  "gpt-4.5-preview": ChatOpenAI,
-  "gpt-4o": ChatOpenAI,
-  "gpt-4o-mini": ChatOpenAI,
-  "o1": ChatOpenAI,
-  "o1-mini": ChatOpenAI,
-  "o1-preview": ChatOpenAI,
-  "o3": ChatOpenAI,
-  "o3-mini": ChatOpenAI,
-  "o4-mini": ChatOpenAI,
-};
+const modelConfigs = {
+  "claude-3-5-haiku-latest": {
+    modelClass: asModelClass(ChatAnthropic),
+    providerModelName: "claude-3-5-haiku-latest",
+  },
+  "claude-3-5-sonnet-latest": {
+    modelClass: asModelClass(ChatAnthropic),
+    providerModelName: "claude-3-5-sonnet-latest",
+  },
+  "claude-3-7-sonnet-latest": {
+    modelClass: asModelClass(ChatAnthropic),
+    providerModelName: "claude-3-7-sonnet-latest",
+  },
+  "claude-opus-4-0": {
+    modelClass: asModelClass(ChatAnthropic),
+    providerModelName: "claude-opus-4-0",
+  },
+  "claude-opus-4-1-20250805": {
+    modelClass: asModelClass(ChatAnthropic),
+    providerModelName: "claude-opus-4-1-20250805",
+  },
+  "claude-sonnet-4-0": {
+    modelClass: asModelClass(ChatAnthropic),
+    providerModelName: "claude-sonnet-4-0",
+  },
+  "deepseek-chat": {
+    modelClass: asModelClass(ChatDeepSeek),
+    providerModelName: "deepseek-chat",
+  },
+  "deepseek-reasoner": {
+    modelClass: asModelClass(ChatDeepSeek),
+    providerModelName: "deepseek-reasoner",
+  },
+  "gemini-2.0-flash": {
+    modelClass: asModelClass(ChatGoogleGenerativeAI),
+    providerModelName: "gemini-2.0-flash",
+  },
+  "gemini-2.0-flash-lite": {
+    modelClass: asModelClass(ChatGoogleGenerativeAI),
+    providerModelName: "gemini-2.0-flash-lite",
+  },
+  "gemini-2.5-flash": {
+    modelClass: asModelClass(ChatGoogleGenerativeAI),
+    providerModelName: "gemini-2.5-flash",
+  },
+  "gemini-2.5-flash-lite": {
+    modelClass: asModelClass(ChatGoogleGenerativeAI),
+    providerModelName: "gemini-2.5-flash-lite",
+  },
+  "gemini-2.5-pro": {
+    modelClass: asModelClass(ChatGoogleGenerativeAI),
+    providerModelName: "gemini-2.5-pro",
+  },
+  "gemma3": {
+    modelClass: asModelClass(ChatOllama),
+    providerModelName: "gemma3",
+  },
+  "gpt-4.1": {
+    modelClass: asModelClass(ChatOpenAI),
+    providerModelName: "gpt-4.1",
+  },
+  "gpt-4o": {
+    modelClass: asModelClass(ChatOpenAI),
+    providerModelName: "gpt-4o",
+  },
+  "gpt-4o-mini": {
+    modelClass: asModelClass(ChatOpenAI),
+    providerModelName: "gpt-4o-mini",
+  },
+  "gpt-5": {
+    modelClass: asModelClass(ChatOpenAI),
+    providerModelName: "gpt-5",
+  },
+  "gpt-5-mini": {
+    modelClass: asModelClass(ChatOpenAI),
+    providerModelName: "gpt-5-mini",
+  },
+  "gpt-5-nano": {
+    modelClass: asModelClass(ChatOpenAI),
+    providerModelName: "gpt-5-nano",
+  },
+  "gpt-5.1": {
+    modelClass: asModelClass(ChatOpenAI),
+    providerModelName: "gpt-5.1",
+  },
+  "gpt-5.1-chat-latest": {
+    modelClass: asModelClass(ChatOpenAI),
+    providerModelName: "gpt-5.1-chat-latest",
+  },
+  "o3": {
+    modelClass: asModelClass(ChatOpenAI),
+    providerModelName: "o3",
+  },
+  "o4-mini": {
+    modelClass: asModelClass(ChatOpenAI),
+    providerModelName: "o4-mini",
+  },
+} as const satisfies Record<
+  CanonicalModelMoniker,
+  { modelClass: ModelClass; providerModelName: string }
+>;
+
+/**
+ * Resolves deprecated aliases to their canonical model names.
+ * @param model The model name to resolve.
+ * @returns The canonical model name.
+ */
+export function resolveModelMoniker(
+  model: ModelMoniker,
+): CanonicalModelMoniker {
+  return deprecatedModelAliases[model as keyof typeof deprecatedModelAliases] ??
+    model;
+}
+
+/**
+ * Gets the constructor for the given canonical model name.
+ * @param model The canonical model name.
+ * @returns The corresponding constructor.
+ */
+export function getModelClass(model: CanonicalModelMoniker): ModelClass {
+  return modelConfigs[model].modelClass;
+}
+
+/**
+ * Gets the provider-specific model name for the canonical model.
+ * @param model The canonical model name.
+ * @returns The provider-specific model name.
+ */
+export function getProviderModelName(model: CanonicalModelMoniker): string {
+  return modelConfigs[model].providerModelName;
+}
 
 /**
  * Tests the given model if it is working.

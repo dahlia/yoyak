@@ -28,11 +28,12 @@ import { readAll } from "@std/io";
 import { AsyncLocalStorage } from "node:async_hooks";
 import metadata from "../deno.json" with { type: "json" };
 import {
-  type ModelClass,
-  modelClasses,
+  getModelClass,
+  getProviderModelName,
   type ModelLike,
   type ModelMoniker,
   modelMonikers,
+  resolveModelMoniker,
   testModel,
 } from "./models.ts";
 import { scrape } from "./scrape.ts";
@@ -95,8 +96,12 @@ async function getModel(
     );
     return await exit(1);
   }
-  const ModelClass = modelClasses[model] as ModelClass;
-  return new ModelClass({ model, apiKey });
+  const canonicalModel = resolveModelMoniker(model);
+  const ModelClass = getModelClass(canonicalModel);
+  return new ModelClass({
+    model: getProviderModelName(canonicalModel),
+    apiKey,
+  });
 }
 
 async function scrapeContent(
@@ -274,7 +279,7 @@ const setModelCommand = new Command<GlobalOptions, GlobalTypes>()
       );
       return await exit(1);
     }
-    await saveSettings({ model, apiKey });
+    await saveSettings({ model: resolveModelMoniker(model), apiKey });
   });
 
 const command = new Command()

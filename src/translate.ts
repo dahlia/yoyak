@@ -16,6 +16,7 @@
 import { authoritativeLabels, type LanguageCode } from "@hongminhee/iso639-1";
 import {
   AIMessage,
+  type BaseMessage,
   HumanMessage,
   SystemMessage,
 } from "@langchain/core/messages";
@@ -71,7 +72,7 @@ export async function* translate(
     return;
   }
   const delimiter = `</${Math.random().toString(36).substring(2, 10)}>`;
-  const messages = [
+  const messages: BaseMessage[] = [
     new SystemMessage(getSystemPrompt(targetLanguage, delimiter)),
     new HumanMessage(text),
   ];
