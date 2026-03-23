@@ -35,10 +35,10 @@
     "jsr:@std/semver@^1.0.8": "1.0.8",
     "jsr:@std/text@^1.0.17": "1.0.17",
     "jsr:@std/toml@1.0.11": "1.0.11",
-    "npm:@langchain/anthropic@0.3.34": "0.3.34_@langchain+core@0.3.80__openai@4.82.0___zod@3.25.76",
+    "npm:@langchain/anthropic@0.3.34": "0.3.34_@langchain+core@0.3.80__openai@4.82.0___zod@3.25.76_zod@3.25.76",
     "npm:@langchain/core@0.3.80": "0.3.80_openai@4.82.0__zod@3.25.76",
     "npm:@langchain/deepseek@^0.0.1": "0.0.1_@langchain+core@0.3.80__openai@4.82.0___zod@3.25.76",
-    "npm:@langchain/google-genai@~0.1.8": "0.1.8_@langchain+core@0.3.80__openai@4.82.0___zod@3.25.76_zod@3.25.76",
+    "npm:@langchain/google-genai@0.1.12": "0.1.12_@langchain+core@0.3.80__openai@4.82.0___zod@3.25.76",
     "npm:@langchain/ollama@~0.2.1": "0.2.1_@langchain+core@0.3.80__openai@4.82.0___zod@3.25.76",
     "npm:@langchain/openai@0.4.9": "0.4.9_@langchain+core@0.3.80__openai@4.82.0___zod@3.25.76",
     "npm:@types/node@*": "18.19.70",
@@ -207,10 +207,14 @@
     }
   },
   "npm": {
-    "@anthropic-ai/sdk@0.65.0": {
+    "@anthropic-ai/sdk@0.65.0_zod@3.25.76": {
       "integrity": "sha512-zIdPOcrCVEI8t3Di40nH4z9EoeyGZfXbYSvWdDLsB/KkaSYMnEgC7gmcgWu83g2NTn1ZTpbMvpdttWDGGIk6zw==",
       "dependencies": [
-        "json-schema-to-ts"
+        "json-schema-to-ts",
+        "zod"
+      ],
+      "optionalPeers": [
+        "zod"
       ],
       "bin": true
     },
@@ -220,10 +224,10 @@
     "@cfworker/json-schema@4.1.1": {
       "integrity": "sha512-gAmrUZSGtKc3AiBL71iNWxDsyUC5uMaKKGdvzYsBoTW/xi42JQHl7eKV2OYzCUqvc+D2RCcf7EXY2iCyFIk6og=="
     },
-    "@google/generative-ai@0.21.0": {
-      "integrity": "sha512-7XhUbtnlkSEZK15kN3t+tzIMxsbKm/dSkKBFalj+20NvPKe1kBY7mR2P7vuijEn+f06z5+A8bVGKO0v39cr6Wg=="
+    "@google/generative-ai@0.24.1": {
+      "integrity": "sha512-MqO+MLfM6kjxcKoy0p1wRzG3b4ZZXtPI+z2IE26UogS2Cm/XHO+7gGRBh6gcJsOiIVoH93UwKvW4HdgiOZCy9Q=="
     },
-    "@langchain/anthropic@0.3.34_@langchain+core@0.3.80__openai@4.82.0___zod@3.25.76": {
+    "@langchain/anthropic@0.3.34_@langchain+core@0.3.80__openai@4.82.0___zod@3.25.76_zod@3.25.76": {
       "integrity": "sha512-8bOW1A2VHRCjbzdYElrjxutKNs9NSIxYRGtR+OJWVzluMqoKKh2NmmFrpPizEyqCUEG2tTq5xt6XA1lwfqMJRA==",
       "dependencies": [
         "@anthropic-ai/sdk",
@@ -256,8 +260,8 @@
         "zod"
       ]
     },
-    "@langchain/google-genai@0.1.8_@langchain+core@0.3.80__openai@4.82.0___zod@3.25.76_zod@3.25.76": {
-      "integrity": "sha512-aBz8IzEJfihOVz2GpqFrdLWjDlpscZUYIA7LZ2iazU7edO03etPaqxdexiYKr/Q+Be2D0BT7uaFJsouvQApIZA==",
+    "@langchain/google-genai@0.1.12_@langchain+core@0.3.80__openai@4.82.0___zod@3.25.76": {
+      "integrity": "sha512-0Ea0E2g63ejCuormVxbuoyJQ5BYN53i2/fb6WP8bMKzyh+y43R13V8JqOtr3e/GmgNyv3ou/VeaZjx7KAvu/0g==",
       "dependencies": [
         "@google/generative-ai",
         "@langchain/core",
@@ -738,7 +742,7 @@
       "npm:@langchain/anthropic@0.3.34",
       "npm:@langchain/core@0.3.80",
       "npm:@langchain/deepseek@^0.0.1",
-      "npm:@langchain/google-genai@~0.1.8",
+      "npm:@langchain/google-genai@0.1.12",
       "npm:@langchain/ollama@~0.2.1",
       "npm:@langchain/openai@0.4.9",
       "npm:chardet@2.1.1",
