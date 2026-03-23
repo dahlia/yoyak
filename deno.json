@@ -1,7 +1,7 @@
 {
   "name": "@hongminhee/yoyak",
   "version": "0.6.0",
-  "license": "GPL-3.0",
+  "license": "GPL-3.0-or-later",
   "exports": {
     ".": "./src/mod.ts",
     "./cli": "./src/cli.ts",
