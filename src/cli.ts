@@ -28,6 +28,8 @@ import { readAll } from "@std/io";
 import { AsyncLocalStorage } from "node:async_hooks";
 import metadata from "../deno.json" with { type: "json" };
 import {
+  getCanonicalModels,
+  getModelCatalog,
   getModelClass,
   getProviderModelName,
   type ModelLike,
@@ -265,6 +267,22 @@ const getModelCommand = new Command<GlobalOptions, GlobalTypes>()
     console.log(`API key: ${settings.apiKey}`);
   });
 
+const modelsCommand = new Command()
+  .description("List the supported model names.")
+  .option(
+    "--json",
+    "Print the supported models in JSON format, including deprecated aliases.",
+  )
+  .action((options: { json?: boolean }) => {
+    if (options.json) {
+      console.log(JSON.stringify({ models: getModelCatalog() }, null, 2));
+      return;
+    }
+    for (const model of getCanonicalModels()) {
+      console.log(model.name);
+    }
+  });
+
 const modelMoniker = new EnumType(modelMonikers);
 
 const setModelCommand = new Command<GlobalOptions, GlobalTypes>()
@@ -313,6 +331,7 @@ const command = new Command()
   })
   .command("summary", summaryCommand)
   .command("scrape", scrapeCommand)
+  .command("models", modelsCommand)
   .command("get-model", getModelCommand)
   .command("set-model", setModelCommand)
   .command("completions", new CompletionsCommand());

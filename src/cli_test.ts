@@ -15,6 +15,7 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 import { ok, strictEqual } from "node:assert/strict";
 import { dirname, fromFileUrl, join } from "@std/path";
+import { canonicalModelMonikers } from "./models.ts";
 
 const ROOT = dirname(dirname(fromFileUrl(import.meta.url)));
 const CLI = join(ROOT, "src", "cli.ts");
@@ -51,18 +52,53 @@ async function runCli(args: string[], stdin?: string) {
 Deno.test("cli help surfaces the main commands", async () => {
   const result = await runCli(["--help"]);
   strictEqual(result.code, 0);
+  ok(result.stdout.includes("models"));
   ok(result.stdout.includes("summary"));
   ok(result.stdout.includes("scrape"));
   ok(result.stdout.includes("completions"));
 });
 
 Deno.test("cli subcommand help remains available", async () => {
+  const models = await runCli(["models", "--help"]);
   const summary = await runCli(["summary", "--help"]);
   const scrape = await runCli(["scrape", "--help"]);
+  strictEqual(models.code, 0);
   strictEqual(summary.code, 0);
   strictEqual(scrape.code, 0);
+  ok(models.stdout.includes("List the supported model names"));
   ok(summary.stdout.includes("Summarize a text file or a web page"));
   ok(scrape.stdout.includes("Scrape a text file or a web page"));
+});
+
+Deno.test("cli models prints canonical model names only", async () => {
+  const result = await runCli(["models"]);
+  strictEqual(result.code, 0);
+  strictEqual(result.stderr, "");
+  strictEqual(result.stdout, `${canonicalModelMonikers.join("\n")}\n`);
+  ok(!result.stdout.includes("chatgpt-4o-latest"));
+});
+
+Deno.test("cli models --json prints catalog metadata", async () => {
+  const result = await runCli(["models", "--json"]);
+  strictEqual(result.code, 0);
+  const parsed = JSON.parse(result.stdout) as {
+    models: Array<{
+      name: string;
+      providerModelName: string;
+      deprecatedAliases: string[];
+    }>;
+  };
+  strictEqual(parsed.models[0].name, canonicalModelMonikers[0]);
+  strictEqual(
+    parsed.models.find((model) => model.name === "gpt-5.3-chat-latest")
+      ?.deprecatedAliases[0],
+    "chatgpt-4o-latest",
+  );
+  strictEqual(
+    parsed.models.find((model) => model.name === "gemini-2.5-flash")
+      ?.deprecatedAliases.includes("gemini-2.0-flash"),
+    true,
+  );
 });
 
 Deno.test("cli emits bash completions", async () => {

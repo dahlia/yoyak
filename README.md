@@ -40,6 +40,13 @@ yoyak set-model gemini-2.5-flash
 It asks for the API key via the standard input, and stores it in configuration
 file.
 
+If you want to discover the currently supported models from the terminal,
+run:
+
+~~~~ bash
+yoyak models
+~~~~
+
 Then you can use the `yoyak summary` command to summarize a web page:
 
 ~~~~ bash
@@ -107,34 +114,17 @@ yoyak completions zsh > /usr/local/share/zsh/site-functions/_yoyak
 Supported models
 ----------------
 
- -  `claude-3-5-haiku-latest`
- -  `claude-3-5-sonnet-latest`
- -  `claude-3-7-sonnet-latest`
- -  `claude-opus-4-0`
- -  `claude-opus-4-1-20250805`
- -  `claude-sonnet-4-0`
- -  `deepseek-chat`
- -  `deepseek-reasoner`
- -  `gemini-2.5-flash`
- -  `gemini-2.5-flash-lite`
- -  `gemini-2.5-pro`
- -  `gemini-3-flash-preview`
- -  `gemini-3-pro-preview`
- -  `gemini-3.1-flash-lite-preview`
- -  `gemma3`
- -  `gpt-4.1`
- -  `gpt-4.1-mini`
- -  `gpt-4.1-nano`
- -  `gpt-4o`
- -  `gpt-4o-mini`
- -  `gpt-5`
- -  `gpt-5-mini`
- -  `gpt-5-nano`
- -  `gpt-5.1`
- -  `gpt-5.3-chat-latest`
- -  `gpt-5.4`
- -  `o3`
- -  `o4-mini`
+Yoyak exposes the supported canonical model names directly from the CLI:
+
+~~~~ bash
+yoyak models
+~~~~
+
+For machine-readable output, use:
+
+~~~~ bash
+yoyak models --json
+~~~~
 
 Older configured model names are still accepted and are mapped to the current
 canonical names when settings are loaded or updated.

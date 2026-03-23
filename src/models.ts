@@ -167,6 +167,15 @@ function asModelClass(modelClass: unknown): ModelClass {
   return modelClass as ModelClass;
 }
 
+export interface CanonicalModelInfo {
+  readonly name: CanonicalModelMoniker;
+  readonly providerModelName: string;
+}
+
+export interface ModelCatalogEntry extends CanonicalModelInfo {
+  readonly deprecatedAliases: readonly DeprecatedModelMoniker[];
+}
+
 /**
  * The per-model provider configuration.
  */
@@ -320,6 +329,48 @@ export function getModelClass(model: CanonicalModelMoniker): ModelClass {
  */
 export function getProviderModelName(model: CanonicalModelMoniker): string {
   return modelConfigs[model].providerModelName;
+}
+
+/**
+ * Gets the canonical model list with provider-specific identifiers.
+ * @returns The canonical model list.
+ */
+export function getCanonicalModels(): readonly CanonicalModelInfo[] {
+  return canonicalModelMonikers.map((name) => ({
+    name,
+    providerModelName: getProviderModelName(name),
+  }));
+}
+
+/**
+ * Gets deprecated aliases grouped by canonical model name.
+ * @returns Deprecated aliases for each canonical model.
+ */
+export function getDeprecatedAliasesByModel(): Readonly<
+  Record<CanonicalModelMoniker, readonly DeprecatedModelMoniker[]>
+> {
+  const aliasesByModel = {} as Record<
+    CanonicalModelMoniker,
+    readonly DeprecatedModelMoniker[]
+  >;
+  for (const name of canonicalModelMonikers) {
+    aliasesByModel[name] = deprecatedModelMonikers.filter((alias) =>
+      deprecatedModelAliases[alias] === name
+    );
+  }
+  return aliasesByModel;
+}
+
+/**
+ * Gets the model catalog including canonical names and deprecated aliases.
+ * @returns The model catalog.
+ */
+export function getModelCatalog(): readonly ModelCatalogEntry[] {
+  const aliasesByModel = getDeprecatedAliasesByModel();
+  return getCanonicalModels().map((model) => ({
+    ...model,
+    deprecatedAliases: aliasesByModel[model.name],
+  }));
 }
 
 /**

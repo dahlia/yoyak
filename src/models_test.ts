@@ -13,8 +13,12 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
-import { strictEqual } from "node:assert/strict";
+import { deepStrictEqual, strictEqual } from "node:assert/strict";
 import {
+  canonicalModelMonikers,
+  getCanonicalModels,
+  getDeprecatedAliasesByModel,
+  getModelCatalog,
   getProviderModelName,
   resolveModelMoniker,
   testModel,
@@ -43,4 +47,31 @@ Deno.test("resolveModelMoniker normalizes deprecated aliases", () => {
     getProviderModelName("gpt-5.3-chat-latest"),
     "gpt-5.3-chat-latest",
   );
+});
+
+Deno.test("model catalog exposes every canonical model exactly once", () => {
+  const catalog = getModelCatalog();
+  deepStrictEqual(
+    catalog.map((model) => model.name),
+    [...canonicalModelMonikers],
+  );
+  deepStrictEqual(
+    getCanonicalModels().map((model) => model.providerModelName),
+    canonicalModelMonikers.map((model) => getProviderModelName(model)),
+  );
+});
+
+Deno.test("deprecated aliases are grouped by canonical model", () => {
+  const aliasesByModel = getDeprecatedAliasesByModel();
+  deepStrictEqual(aliasesByModel["gpt-5.3-chat-latest"], [
+    "chatgpt-4o-latest",
+    "gpt-5-chat-latest",
+  ]);
+  deepStrictEqual(aliasesByModel["gemini-2.5-flash"], [
+    "gemini-1.5-flash",
+    "gemini-2.0-flash-exp",
+    "gemini-2.0-flash",
+    "gemini-2.0-flash-thinking-exp-01-21",
+    "gemini-2.5-flash-preview-04-17",
+  ]);
 });

@@ -17,6 +17,9 @@ To be released.
  -  Older configured model names remain accepted and are automatically mapped
     to the current canonical model names when settings are loaded or updated.
 
+ -  Added `yoyak models` command to list supported model names directly from
+    the terminal, with optional JSON output for scripts and tooling.
+
 [#2]: https://github.com/dahlia/yoyak/pull/2
 
 
