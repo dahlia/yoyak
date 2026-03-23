@@ -19,7 +19,7 @@
     "@langchain/core": "npm:@langchain/core@0.3.80",
     "@langchain/deepseek": "npm:@langchain/deepseek@^0.0.1",
     "@langchain/google-genai": "npm:@langchain/google-genai@^0.1.8",
-    "@langchain/openai": "npm:@langchain/openai@^0.4.2",
+    "@langchain/openai": "npm:@langchain/openai@0.4.9",
     "@langchain/ollama": "npm:@langchain/ollama@^0.2.1",
     "@logtape/logtape": "jsr:@logtape/logtape@^0.8.2",
     "@paoramen/cheer-reader": "jsr:@paoramen/cheer-reader@^0.1.2",
