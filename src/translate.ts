@@ -21,7 +21,8 @@ import {
 } from "@langchain/core/messages";
 import { getLogger } from "@logtape/logtape";
 import { detect } from "tinyld";
-import type { Model } from "./models.ts";
+import { getMessageText } from "./model_text.ts";
+import type { ModelLike } from "./models.ts";
 
 const logger = getLogger(["yoyak", "translate"]);
 
@@ -60,7 +61,7 @@ export interface TranslateOptions {
  * @returns The translated text.
  */
 export async function* translate(
-  model: Model,
+  model: ModelLike,
   text: string,
   targetLanguage: LanguageCode,
   options: TranslateOptions = {},
@@ -82,7 +83,7 @@ export async function* translate(
     let message = "";
     let buffer = "";
     for await (const chunk of result) {
-      const str = chunk.content.toString();
+      const str = getMessageText(chunk);
       buffer += str;
       message += str;
       if (buffer.match(/<\/[0-9a-z]{0,10}$/)) continue;

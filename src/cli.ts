@@ -28,8 +28,9 @@ import { readAll } from "@std/io";
 import { AsyncLocalStorage } from "node:async_hooks";
 import metadata from "../deno.json" with { type: "json" };
 import {
-  type Model,
+  type ModelClass,
   modelClasses,
+  type ModelLike,
   type ModelMoniker,
   modelMonikers,
   testModel,
@@ -77,7 +78,7 @@ type GlobalTypes = {
 
 async function getModel(
   options: { model?: ModelMoniker; apiKey?: string },
-): Promise<Model> {
+): Promise<ModelLike> {
   let { model, apiKey } = options;
   const settings = await loadSettings();
   model ??= settings?.model ?? undefined;
@@ -94,7 +95,8 @@ async function getModel(
     );
     return await exit(1);
   }
-  return new modelClasses[model]({ model, apiKey });
+  const ModelClass = modelClasses[model] as ModelClass;
+  return new ModelClass({ model, apiKey });
 }
 
 async function scrapeContent(

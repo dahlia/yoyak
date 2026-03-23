@@ -20,6 +20,7 @@ import { ChatGoogleGenerativeAI } from "@langchain/google-genai";
 import { ChatOllama } from "@langchain/ollama";
 import { ChatOpenAI } from "@langchain/openai";
 import { getLogger } from "@logtape/logtape";
+import { getMessageText, type MessageLike } from "./model_text.ts";
 
 const logger = getLogger(["yoyak", "models"]);
 
@@ -82,17 +83,26 @@ export type Model =
   | ChatGoogleGenerativeAI
   | ChatOllama;
 
+export interface ModelStreamOptions {
+  signal?: AbortSignal;
+}
+
+export interface ModelLike {
+  invoke(...args: unknown[]): Promise<MessageLike>;
+  stream(...args: unknown[]): Promise<AsyncIterable<MessageLike>>;
+}
+
 /**
  * The constructor of a model.
  */
 export type ModelClass = new (
-  options: { model: ModelMoniker; apiKey: string },
-) => Model;
+  ...args: unknown[]
+) => ModelLike;
 
 /**
  * The map of model monikers to model constructors.
  */
-export const modelClasses: Record<ModelMoniker, ModelClass> = {
+export const modelClasses: Record<ModelMoniker, unknown> = {
   "chatgpt-4o-latest": ChatOpenAI,
   "claude-3-5-haiku-latest": ChatAnthropic,
   "claude-3-5-sonnet-latest": ChatAnthropic,
@@ -129,13 +139,13 @@ export const modelClasses: Record<ModelMoniker, ModelClass> = {
  * @param model The model to test.
  * @returns Whether the model is working.
  */
-export async function testModel(model: Model): Promise<boolean> {
+export async function testModel(model: ModelLike): Promise<boolean> {
   const message = new HumanMessage("Please say “yes.”");
   logger.debug("Testing model with message: {message}", { message });
   try {
     const response = await model.invoke([message]);
     logger.debug("Model response: {response}", { response });
-    return response.content.toString().match(/\byes\b/i) != null;
+    return getMessageText(response).match(/\byes\b/i) != null;
   } catch (error) {
     logger.debug("Model failed to respond: {error}", { error });
     return false;

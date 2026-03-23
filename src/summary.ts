@@ -16,7 +16,8 @@
 import { authoritativeLabels, type LanguageCode } from "@hongminhee/iso639-1";
 import { HumanMessage, SystemMessage } from "@langchain/core/messages";
 import { getLogger } from "@logtape/logtape";
-import type { Model } from "./models.ts";
+import { getMessageText } from "./model_text.ts";
+import type { ModelLike } from "./models.ts";
 
 const logger = getLogger(["yoyak", "summary"]);
 
@@ -117,7 +118,7 @@ export interface SummarizeOptions {
  * @returns The summarized text.
  */
 export async function* summarize(
-  model: Model,
+  model: ModelLike,
   text: string,
   options: SummarizeOptions = {},
 ): AsyncIterable<string> {
@@ -133,5 +134,5 @@ export async function* summarize(
   );
   const result = await model.stream(messages, { signal: options.signal });
   logger.debug("Received the result: {result}", { result });
-  for await (const chunk of result) yield chunk.content.toString();
+  for await (const chunk of result) yield getMessageText(chunk);
 }

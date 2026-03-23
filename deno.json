@@ -42,7 +42,7 @@
   },
   "tasks": {
     "build": "deno run --allow-env --allow-run --allow-read --allow-write scripts/build.ts",
-    "check": "deno fmt --check . && deno check src/ && deno lint",
+    "check": "deno fmt --check . && deno check src/ && deno lint && deno test --allow-env --allow-read --allow-run --allow-write src/",
     "run": "deno run --allow-net --allow-env --allow-sys --allow-read --allow-write src/cli.ts",
     "hooks:install": "deno run --allow-read=deno.json,.git/hooks/ --allow-write=.git/hooks/ jsr:@hongminhee/deno-task-hooks",
     "hooks:pre-commit": {
