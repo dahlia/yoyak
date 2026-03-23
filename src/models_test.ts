@@ -36,10 +36,11 @@ Deno.test("testModel accepts text from standardized content blocks", async () =>
 });
 
 Deno.test("resolveModelMoniker normalizes deprecated aliases", () => {
-  strictEqual(resolveModelMoniker("chatgpt-4o-latest"), "gpt-5.1-chat-latest");
+  strictEqual(resolveModelMoniker("chatgpt-4o-latest"), "gpt-5.3-chat-latest");
+  strictEqual(resolveModelMoniker("gemini-2.0-flash"), "gemini-2.5-flash");
   strictEqual(resolveModelMoniker("gpt-4o"), "gpt-4o");
   strictEqual(
-    getProviderModelName("gpt-5.1-chat-latest"),
-    "gpt-5.1-chat-latest",
+    getProviderModelName("gpt-5.3-chat-latest"),
+    "gpt-5.3-chat-latest",
   );
 });

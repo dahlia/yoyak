@@ -46,7 +46,7 @@ Deno.test("settings load normalizes deprecated model aliases", async () => {
     );
     const settings = await loadSettings();
     deepStrictEqual(settings, {
-      model: "gpt-5.1-chat-latest",
+      model: "gpt-5.3-chat-latest",
       apiKey: "secret",
     });
   } finally {

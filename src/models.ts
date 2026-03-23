@@ -36,19 +36,24 @@ export const canonicalModelMonikers = [
   "claude-sonnet-4-0",
   "deepseek-chat",
   "deepseek-reasoner",
-  "gemini-2.0-flash",
-  "gemini-2.0-flash-lite",
   "gemini-2.5-flash",
   "gemini-2.5-flash-lite",
   "gemini-2.5-pro",
+  "gemini-3-flash-preview",
+  "gemini-3-pro-preview",
+  "gemini-3.1-flash-lite-preview",
   "gemma3",
   "gpt-4.1",
+  "gpt-4.1-mini",
+  "gpt-4.1-nano",
   "gpt-4o",
   "gpt-4o-mini",
   "gpt-5",
   "gpt-5-mini",
   "gpt-5-nano",
   "gpt-5.1",
+  "gpt-5.3-chat-latest",
+  "gpt-5.4",
   "gpt-5.1-chat-latest",
   "o3",
   "o4-mini",
@@ -69,6 +74,8 @@ export const deprecatedModelMonikers = [
   "gemini-1.5-flash-8b",
   "gemini-1.5-pro",
   "gemini-2.0-flash-exp",
+  "gemini-2.0-flash",
+  "gemini-2.0-flash-lite",
   "gemini-2.0-flash-lite-preview-02-05",
   "gemini-2.0-flash-thinking-exp-01-21",
   "gemini-2.0-pro-exp-02-05",
@@ -79,6 +86,7 @@ export const deprecatedModelMonikers = [
   "o1-mini",
   "o1-preview",
   "o3-mini",
+  "gpt-5-chat-latest",
 ] as const;
 
 export type DeprecatedModelMoniker = typeof deprecatedModelMonikers[number];
@@ -86,18 +94,21 @@ export type DeprecatedModelMoniker = typeof deprecatedModelMonikers[number];
 export const deprecatedModelAliases: Readonly<
   Record<DeprecatedModelMoniker, CanonicalModelMoniker>
 > = {
-  "chatgpt-4o-latest": "gpt-5.1-chat-latest",
+  "chatgpt-4o-latest": "gpt-5.3-chat-latest",
   "claude-3-opus-latest": "claude-opus-4-0",
   "gemini-1.5-flash": "gemini-2.5-flash",
   "gemini-1.5-flash-8b": "gemini-2.5-flash-lite",
   "gemini-1.5-pro": "gemini-2.5-pro",
-  "gemini-2.0-flash-exp": "gemini-2.0-flash",
+  "gemini-2.0-flash-exp": "gemini-2.5-flash",
+  "gemini-2.0-flash": "gemini-2.5-flash",
+  "gemini-2.0-flash-lite": "gemini-2.5-flash-lite",
   "gemini-2.0-flash-lite-preview-02-05": "gemini-2.5-flash-lite",
   "gemini-2.0-flash-thinking-exp-01-21": "gemini-2.5-flash",
   "gemini-2.0-pro-exp-02-05": "gemini-2.5-pro",
   "gemini-2.5-flash-preview-04-17": "gemini-2.5-flash",
   "gemini-2.5-pro-preview-03-25": "gemini-2.5-pro",
   "gpt-4.5-preview": "gpt-4.1",
+  "gpt-5-chat-latest": "gpt-5.3-chat-latest",
   "o1": "o3",
   "o1-mini": "o4-mini",
   "o1-preview": "o3",
@@ -192,14 +203,6 @@ const modelConfigs = {
     modelClass: asModelClass(ChatDeepSeek),
     providerModelName: "deepseek-reasoner",
   },
-  "gemini-2.0-flash": {
-    modelClass: asModelClass(ChatGoogleGenerativeAI),
-    providerModelName: "gemini-2.0-flash",
-  },
-  "gemini-2.0-flash-lite": {
-    modelClass: asModelClass(ChatGoogleGenerativeAI),
-    providerModelName: "gemini-2.0-flash-lite",
-  },
   "gemini-2.5-flash": {
     modelClass: asModelClass(ChatGoogleGenerativeAI),
     providerModelName: "gemini-2.5-flash",
@@ -212,6 +215,18 @@ const modelConfigs = {
     modelClass: asModelClass(ChatGoogleGenerativeAI),
     providerModelName: "gemini-2.5-pro",
   },
+  "gemini-3-flash-preview": {
+    modelClass: asModelClass(ChatGoogleGenerativeAI),
+    providerModelName: "gemini-3-flash-preview",
+  },
+  "gemini-3-pro-preview": {
+    modelClass: asModelClass(ChatGoogleGenerativeAI),
+    providerModelName: "gemini-3-pro-preview",
+  },
+  "gemini-3.1-flash-lite-preview": {
+    modelClass: asModelClass(ChatGoogleGenerativeAI),
+    providerModelName: "gemini-3.1-flash-lite-preview",
+  },
   "gemma3": {
     modelClass: asModelClass(ChatOllama),
     providerModelName: "gemma3",
@@ -219,6 +234,14 @@ const modelConfigs = {
   "gpt-4.1": {
     modelClass: asModelClass(ChatOpenAI),
     providerModelName: "gpt-4.1",
+  },
+  "gpt-4.1-mini": {
+    modelClass: asModelClass(ChatOpenAI),
+    providerModelName: "gpt-4.1-mini",
+  },
+  "gpt-4.1-nano": {
+    modelClass: asModelClass(ChatOpenAI),
+    providerModelName: "gpt-4.1-nano",
   },
   "gpt-4o": {
     modelClass: asModelClass(ChatOpenAI),
@@ -243,6 +266,14 @@ const modelConfigs = {
   "gpt-5.1": {
     modelClass: asModelClass(ChatOpenAI),
     providerModelName: "gpt-5.1",
+  },
+  "gpt-5.3-chat-latest": {
+    modelClass: asModelClass(ChatOpenAI),
+    providerModelName: "gpt-5.3-chat-latest",
+  },
+  "gpt-5.4": {
+    modelClass: asModelClass(ChatOpenAI),
+    providerModelName: "gpt-5.4",
   },
   "gpt-5.1-chat-latest": {
     modelClass: asModelClass(ChatOpenAI),
