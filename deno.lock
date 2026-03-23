@@ -13,7 +13,7 @@
     "jsr:@david/path@0.2": "0.2.0",
     "jsr:@david/which@~0.4.1": "0.4.1",
     "jsr:@hongminhee/iso639-1@^1.3.20090901": "1.3.20090901",
-    "jsr:@logtape/logtape@~0.8.2": "0.8.2",
+    "jsr:@logtape/logtape@2.0.4": "2.0.4",
     "jsr:@paoramen/cheer-reader@~0.1.2": "0.1.2",
     "jsr:@std/assert@^1.0.18": "1.0.19",
     "jsr:@std/bytes@^1.0.5": "1.0.5",
@@ -129,8 +129,8 @@
     "@hongminhee/iso639-1@1.3.20090901": {
       "integrity": "831e0aa6598f664e14050558b05c730ccd7c0d2528c4f1bd85e60c5416f83f80"
     },
-    "@logtape/logtape@0.8.2": {
-      "integrity": "e2ae1fc2561e8d010359b9894efb39bdb559dae44f5824540cbb26a78eee36bc"
+    "@logtape/logtape@2.0.4": {
+      "integrity": "d4b6e85d82954f3d58014d85e4c0f93d6a836181ef4fbb4a852da7ed47979acb"
     },
     "@paoramen/cheer-reader@0.1.2": {
       "integrity": "550af9849bef97a5eadbab354faf8fdb1720fe90e4c4f030ce505551b3ffc3d1",
@@ -579,7 +579,7 @@
       "jsr:@cliffy/prompt@1.0.0",
       "jsr:@david/dax@0.45.0",
       "jsr:@hongminhee/iso639-1@^1.3.20090901",
-      "jsr:@logtape/logtape@~0.8.2",
+      "jsr:@logtape/logtape@2.0.4",
       "jsr:@paoramen/cheer-reader@~0.1.2",
       "jsr:@std/fs@1.0.23",
       "jsr:@std/io@0.225.3",
