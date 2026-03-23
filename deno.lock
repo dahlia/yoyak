@@ -35,12 +35,12 @@
     "jsr:@std/semver@^1.0.8": "1.0.8",
     "jsr:@std/text@^1.0.17": "1.0.17",
     "jsr:@std/toml@1.0.11": "1.0.11",
-    "npm:@langchain/anthropic@~0.3.12": "0.3.12_@langchain+core@0.3.80__openai@4.82.0___zod@3.25.76",
+    "npm:@langchain/anthropic@0.3.34": "0.3.34_@langchain+core@0.3.80__openai@4.82.0___zod@3.25.76",
     "npm:@langchain/core@0.3.80": "0.3.80_openai@4.82.0__zod@3.25.76",
     "npm:@langchain/deepseek@^0.0.1": "0.0.1_@langchain+core@0.3.80__openai@4.82.0___zod@3.25.76",
     "npm:@langchain/google-genai@~0.1.8": "0.1.8_@langchain+core@0.3.80__openai@4.82.0___zod@3.25.76_zod@3.25.76",
     "npm:@langchain/ollama@~0.2.1": "0.2.1_@langchain+core@0.3.80__openai@4.82.0___zod@3.25.76",
-    "npm:@langchain/openai@0.4.9": "0.4.9_@langchain+core@0.3.80__openai@4.104.0___zod@3.25.76",
+    "npm:@langchain/openai@0.4.9": "0.4.9_@langchain+core@0.3.80__openai@4.82.0___zod@3.25.76",
     "npm:@types/node@*": "18.19.70",
     "npm:chardet@2.1.1": "2.1.1",
     "npm:cheerio@1.2.0": "1.2.0",
@@ -207,17 +207,15 @@
     }
   },
   "npm": {
-    "@anthropic-ai/sdk@0.32.1": {
-      "integrity": "sha512-U9JwTrDvdQ9iWuABVsMLj8nJVwAyQz6QXvgLsVhryhCEPkLsbcP/MXxm+jYcAwLoV8ESbaTTjnD4kuAFa+Hyjg==",
+    "@anthropic-ai/sdk@0.65.0": {
+      "integrity": "sha512-zIdPOcrCVEI8t3Di40nH4z9EoeyGZfXbYSvWdDLsB/KkaSYMnEgC7gmcgWu83g2NTn1ZTpbMvpdttWDGGIk6zw==",
       "dependencies": [
-        "@types/node",
-        "@types/node-fetch",
-        "abort-controller",
-        "agentkeepalive",
-        "form-data-encoder",
-        "formdata-node",
-        "node-fetch"
-      ]
+        "json-schema-to-ts"
+      ],
+      "bin": true
+    },
+    "@babel/runtime@7.28.6": {
+      "integrity": "sha512-05WQkdpL9COIMz4LjTxGpPNCdlpyimKppYNoJ5Di5EUObifl8t4tuLuUBBZEpoLYOmfvIWrsp9fCl0HoPRVTdA=="
     },
     "@cfworker/json-schema@4.1.1": {
       "integrity": "sha512-gAmrUZSGtKc3AiBL71iNWxDsyUC5uMaKKGdvzYsBoTW/xi42JQHl7eKV2OYzCUqvc+D2RCcf7EXY2iCyFIk6og=="
@@ -225,31 +223,12 @@
     "@google/generative-ai@0.21.0": {
       "integrity": "sha512-7XhUbtnlkSEZK15kN3t+tzIMxsbKm/dSkKBFalj+20NvPKe1kBY7mR2P7vuijEn+f06z5+A8bVGKO0v39cr6Wg=="
     },
-    "@langchain/anthropic@0.3.12_@langchain+core@0.3.80__openai@4.82.0___zod@3.25.76": {
-      "integrity": "sha512-vYANJVeus+v8wieTST5GUGlennY87NMIjaFx6JCJN8MMtf2KVwyBWQAUAPyGwzVQ40tru3w0rK2ruvzYBRcWEg==",
+    "@langchain/anthropic@0.3.34_@langchain+core@0.3.80__openai@4.82.0___zod@3.25.76": {
+      "integrity": "sha512-8bOW1A2VHRCjbzdYElrjxutKNs9NSIxYRGtR+OJWVzluMqoKKh2NmmFrpPizEyqCUEG2tTq5xt6XA1lwfqMJRA==",
       "dependencies": [
         "@anthropic-ai/sdk",
-        "@langchain/core@0.3.80_openai@4.82.0__zod@3.25.76",
-        "fast-xml-parser",
-        "zod",
-        "zod-to-json-schema"
-      ]
-    },
-    "@langchain/core@0.3.80_openai@4.104.0__zod@3.25.76": {
-      "integrity": "sha512-vcJDV2vk1AlCwSh3aBm/urQ1ZrlXFFBocv11bz/NBUfLWD5/UDNMzwPdaAd2dKvNmTWa9FM2lirLU3+JCf4cRA==",
-      "dependencies": [
-        "@cfworker/json-schema",
-        "ansi-styles@5.2.0",
-        "camelcase",
-        "decamelize",
-        "js-tiktoken",
-        "langsmith@0.3.87_openai@4.104.0__zod@3.25.76_zod@3.25.76",
-        "mustache",
-        "p-queue",
-        "p-retry",
-        "uuid",
-        "zod",
-        "zod-to-json-schema"
+        "@langchain/core",
+        "fast-xml-parser"
       ]
     },
     "@langchain/core@0.3.80_openai@4.82.0__zod@3.25.76": {
@@ -260,7 +239,7 @@
         "camelcase",
         "decamelize",
         "js-tiktoken",
-        "langsmith@0.3.87_openai@4.82.0__zod@3.25.76_zod@3.25.76",
+        "langsmith",
         "mustache",
         "p-queue",
         "p-retry",
@@ -272,7 +251,7 @@
     "@langchain/deepseek@0.0.1_@langchain+core@0.3.80__openai@4.82.0___zod@3.25.76": {
       "integrity": "sha512-jgrbitvV4p7Kqo/Fyni9coCliNXUrJ2XChdR8eHvQg3RL+w13DIQjJn2mrkCrb7v6Is1rI7It2x3yIbADL71Yg==",
       "dependencies": [
-        "@langchain/core@0.3.80_openai@4.82.0__zod@3.25.76",
+        "@langchain/core",
         "@langchain/openai",
         "zod"
       ]
@@ -281,24 +260,24 @@
       "integrity": "sha512-aBz8IzEJfihOVz2GpqFrdLWjDlpscZUYIA7LZ2iazU7edO03etPaqxdexiYKr/Q+Be2D0BT7uaFJsouvQApIZA==",
       "dependencies": [
         "@google/generative-ai",
-        "@langchain/core@0.3.80_openai@4.82.0__zod@3.25.76",
+        "@langchain/core",
         "zod-to-json-schema"
       ]
     },
     "@langchain/ollama@0.2.1_@langchain+core@0.3.80__openai@4.82.0___zod@3.25.76": {
       "integrity": "sha512-9WQ/rJV002n2f/aBPzNKBZU7kJfhqDnaGTWeIKO5gM0wZ+Rb2mfk7psluFIedachwsM/FQ+oIBcViHriaXngzA==",
       "dependencies": [
-        "@langchain/core@0.3.80_openai@4.82.0__zod@3.25.76",
+        "@langchain/core",
         "ollama",
         "uuid",
         "zod",
         "zod-to-json-schema"
       ]
     },
-    "@langchain/openai@0.4.9_@langchain+core@0.3.80__openai@4.104.0___zod@3.25.76": {
+    "@langchain/openai@0.4.9_@langchain+core@0.3.80__openai@4.82.0___zod@3.25.76": {
       "integrity": "sha512-NAsaionRHNdqaMjVLPkFCyjUDze+OqRHghA1Cn4fPoAafz+FXcl9c7LlEl9Xo0FH6/8yiCl7Rw2t780C/SBVxQ==",
       "dependencies": [
-        "@langchain/core@0.3.80_openai@4.104.0__zod@3.25.76",
+        "@langchain/core",
         "js-tiktoken",
         "openai",
         "zod",
@@ -484,8 +463,8 @@
     "eventemitter3@4.0.7": {
       "integrity": "sha512-8guHBZCwKnFhYdHr2ysuRWErTwhoN2X8XELRlrRwpmfeY2jjuUN4taQMsULKUVo1K4DvZl+0pgfyoysHxvmvEw=="
     },
-    "fast-xml-parser@4.5.1": {
-      "integrity": "sha512-y655CeyUQ+jj7KBbYMc4FG01V8ZQqjN+gDYGJ50RtfsUB8iG9AmwmwoAgeKLJdmueKKMrH1RJ7yXHTSoczdv5w==",
+    "fast-xml-parser@4.5.5": {
+      "integrity": "sha512-cK9c5I/DwIOI7/Q7AlGN3DuTdwN61gwSfL8rvuVPK+0mcCNHHGxRrpiFtaZZRfRMJL3Gl8B2AFlBG6qXf03w9A==",
       "dependencies": [
         "strnum"
       ],
@@ -545,19 +524,11 @@
         "base64-js"
       ]
     },
-    "langsmith@0.3.87_openai@4.104.0__zod@3.25.76_zod@3.25.76": {
-      "integrity": "sha512-XXR1+9INH8YX96FKWc5tie0QixWz6tOqAsAKfcJyPkE0xPep+NDz0IQLR32q4bn10QK3LqD2HN6T3n6z1YLW7Q==",
+    "json-schema-to-ts@3.1.1": {
+      "integrity": "sha512-+DWg8jCJG2TEnpy7kOm/7/AxaYoaRbjVB4LFZLySZlWn8exGs3A4OLJR966cVvU26N7X9TWxl+Jsw7dzAqKT6g==",
       "dependencies": [
-        "@types/uuid",
-        "chalk",
-        "console-table-printer",
-        "openai",
-        "p-queue",
-        "semver",
-        "uuid"
-      ],
-      "optionalPeers": [
-        "openai"
+        "@babel/runtime",
+        "ts-algebra"
       ]
     },
     "langsmith@0.3.87_openai@4.82.0__zod@3.25.76_zod@3.25.76": {
@@ -681,8 +652,8 @@
     "simple-wcswidth@1.0.1": {
       "integrity": "sha512-xMO/8eNREtaROt7tJvWJqHBDTMFN4eiQ5I4JRMuilwfnFcV5W9u7RUkueNkdw0jPqGMX36iCywelS5yilTuOxg=="
     },
-    "strnum@1.0.5": {
-      "integrity": "sha512-J8bbNyKKXl5qYcR36TIO8W3mVGVHrmmxsd5PAItGkmyzwJvybiw2IVq5nqd0i4LSNSkB/sx9VHllbfFdr9k1JA=="
+    "strnum@1.1.2": {
+      "integrity": "sha512-vrN+B7DBIoTTZjnPNewwhx6cBA/H+IS7rfW68n7XxC1y7uoiGQBxaKzqucGUgavX15dJgiGztLJ8vxuEzwqBdA=="
     },
     "supports-color@7.2.0": {
       "integrity": "sha512-qpCAvRl9stuOHveKsn7HncJRvv501qIacKzQlO/+Lwxc9+0q2wLyv4Dfvt80/DPn2pqOBsJdDiogXGR9+OvwRw==",
@@ -696,6 +667,9 @@
     },
     "tr46@0.0.3": {
       "integrity": "sha512-N3WMsuqV66lT30CrXNbEjx4GEwlow3v6rr4mCcv6prnfwhS01rkgyFdjPNBYd9br7LpXV1+Emh01fHnq2Gdgrw=="
+    },
+    "ts-algebra@2.0.0": {
+      "integrity": "sha512-FPAhNPFMrkwz76P7cdjdmiShwMynZYN6SgOujD1urY4oNm80Ou9oMdmbR45LotcKOXoy7wSmHkRFE6Mxbrhefw=="
     },
     "turndown@7.2.2": {
       "integrity": "sha512-1F7db8BiExOKxjSMU2b7if62D/XOyQyZbPKq/nUwopfgnHlqXHqQ0lvfUTeUIr1lZJzOPFn43dODyMSIfvWRKQ==",
@@ -761,7 +735,7 @@
       "jsr:@std/io@0.225.3",
       "jsr:@std/path@1.1.4",
       "jsr:@std/toml@1.0.11",
-      "npm:@langchain/anthropic@~0.3.12",
+      "npm:@langchain/anthropic@0.3.34",
       "npm:@langchain/core@0.3.80",
       "npm:@langchain/deepseek@^0.0.1",
       "npm:@langchain/google-genai@~0.1.8",
