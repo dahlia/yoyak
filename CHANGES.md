@@ -4,7 +4,7 @@ Yoyak changelog
 Version 0.6.0
 -------------
 
-To be released.
+Released on March 23, 2026.
 
  -  Added `-p`/`--paragraphs` option to `yoyak summary` command to specify the
     number of paragraphs to produce.  The default value is 1.
@@ -18,9 +18,10 @@ To be released.
     to the current canonical model names when settings are loaded or updated.
 
  -  Added `yoyak models` command to list supported model names directly from
-    the terminal, with optional JSON output for scripts and tooling.
+    the terminal, with optional JSON output for scripts and tooling. [[#3]]
 
 [#2]: https://github.com/dahlia/yoyak/pull/2
+[#3]: https://github.com/dahlia/yoyak/issues/3
 
 
 Version 0.5.2
