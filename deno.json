@@ -24,7 +24,7 @@
     "@logtape/logtape": "jsr:@logtape/logtape@^0.8.2",
     "@paoramen/cheer-reader": "jsr:@paoramen/cheer-reader@^0.1.2",
     "@std/fs": "jsr:@std/fs@^1.0.11",
-    "@std/io": "jsr:@std/io@^0.225.2",
+    "@std/io": "jsr:@std/io@0.225.3",
     "@std/path": "jsr:@std/path@1.1.4",
     "@std/toml": "jsr:@std/toml@1.0.11",
     "chardet": "npm:chardet@^2.0.0",
