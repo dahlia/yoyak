@@ -37,7 +37,7 @@
     "jsr:@std/toml@1.0.11": "1.0.11",
     "npm:@langchain/anthropic@0.3.34": "0.3.34_@langchain+core@0.3.80__openai@4.82.0___zod@3.25.76_zod@3.25.76",
     "npm:@langchain/core@0.3.80": "0.3.80_openai@4.82.0__zod@3.25.76",
-    "npm:@langchain/deepseek@^0.0.1": "0.0.1_@langchain+core@0.3.80__openai@4.82.0___zod@3.25.76",
+    "npm:@langchain/deepseek@0.1.0": "0.1.0_@langchain+core@0.3.80__openai@4.82.0___zod@3.25.76",
     "npm:@langchain/google-genai@0.1.12": "0.1.12_@langchain+core@0.3.80__openai@4.82.0___zod@3.25.76",
     "npm:@langchain/ollama@0.2.4": "0.2.4_@langchain+core@0.3.80__openai@4.82.0___zod@3.25.76",
     "npm:@langchain/openai@0.4.9": "0.4.9_@langchain+core@0.3.80__openai@4.104.0___zod@3.25.76",
@@ -269,12 +269,28 @@
         "zod-to-json-schema"
       ]
     },
-    "@langchain/deepseek@0.0.1_@langchain+core@0.3.80__openai@4.82.0___zod@3.25.76": {
-      "integrity": "sha512-jgrbitvV4p7Kqo/Fyni9coCliNXUrJ2XChdR8eHvQg3RL+w13DIQjJn2mrkCrb7v6Is1rI7It2x3yIbADL71Yg==",
+    "@langchain/core@0.3.80_openai@5.12.2__zod@3.25.76": {
+      "integrity": "sha512-vcJDV2vk1AlCwSh3aBm/urQ1ZrlXFFBocv11bz/NBUfLWD5/UDNMzwPdaAd2dKvNmTWa9FM2lirLU3+JCf4cRA==",
+      "dependencies": [
+        "@cfworker/json-schema",
+        "ansi-styles@5.2.0",
+        "camelcase",
+        "decamelize",
+        "js-tiktoken",
+        "langsmith@0.3.87_openai@5.12.2__zod@3.25.76_zod@3.25.76",
+        "mustache",
+        "p-queue",
+        "p-retry",
+        "uuid",
+        "zod",
+        "zod-to-json-schema"
+      ]
+    },
+    "@langchain/deepseek@0.1.0_@langchain+core@0.3.80__openai@4.82.0___zod@3.25.76": {
+      "integrity": "sha512-5VzaG/oi2oSfBt+JUdXWjavZcmOzjk14+N5sCFnbrY6xeAjHrtBq7VeBcBJcHqkrjafxADK1aVGV0hpbhiFyJg==",
       "dependencies": [
         "@langchain/core@0.3.80_openai@4.82.0__zod@3.25.76",
-        "@langchain/openai",
-        "zod"
+        "@langchain/openai@0.6.17_@langchain+core@0.3.80__openai@5.12.2___zod@3.25.76"
       ]
     },
     "@langchain/google-genai@0.1.12_@langchain+core@0.3.80__openai@4.82.0___zod@3.25.76": {
@@ -298,9 +314,18 @@
       "dependencies": [
         "@langchain/core@0.3.80_openai@4.104.0__zod@3.25.76",
         "js-tiktoken",
-        "openai",
+        "openai@4.104.0_zod@3.25.76",
         "zod",
         "zod-to-json-schema"
+      ]
+    },
+    "@langchain/openai@0.6.17_@langchain+core@0.3.80__openai@5.12.2___zod@3.25.76": {
+      "integrity": "sha512-JVSzD+FL5v/2UQxKd+ikB1h4PQOtn0VlK8nqW2kPp0fshItCv4utrjBKXC/rubBnSXoRTyonBINe8QRZ6OojVQ==",
+      "dependencies": [
+        "@langchain/core@0.3.80_openai@5.12.2__zod@3.25.76",
+        "js-tiktoken",
+        "openai@5.12.2_zod@3.25.76",
+        "zod"
       ]
     },
     "@mixmark-io/domino@2.2.0": {
@@ -556,13 +581,13 @@
         "@types/uuid",
         "chalk",
         "console-table-printer",
-        "openai",
+        "openai@4.104.0_zod@3.25.76",
         "p-queue",
         "semver",
         "uuid"
       ],
       "optionalPeers": [
-        "openai"
+        "openai@4.104.0_zod@3.25.76"
       ]
     },
     "langsmith@0.3.87_openai@4.82.0__zod@3.25.76_zod@3.25.76": {
@@ -574,6 +599,21 @@
         "p-queue",
         "semver",
         "uuid"
+      ]
+    },
+    "langsmith@0.3.87_openai@5.12.2__zod@3.25.76_zod@3.25.76": {
+      "integrity": "sha512-XXR1+9INH8YX96FKWc5tie0QixWz6tOqAsAKfcJyPkE0xPep+NDz0IQLR32q4bn10QK3LqD2HN6T3n6z1YLW7Q==",
+      "dependencies": [
+        "@types/uuid",
+        "chalk",
+        "console-table-printer",
+        "openai@5.12.2_zod@3.25.76",
+        "p-queue",
+        "semver",
+        "uuid"
+      ],
+      "optionalPeers": [
+        "openai@5.12.2_zod@3.25.76"
       ]
     },
     "mime-db@1.52.0": {
@@ -624,6 +664,16 @@
         "form-data-encoder",
         "formdata-node",
         "node-fetch",
+        "zod"
+      ],
+      "optionalPeers": [
+        "zod"
+      ],
+      "bin": true
+    },
+    "openai@5.12.2_zod@3.25.76": {
+      "integrity": "sha512-xqzHHQch5Tws5PcKR2xsZGX9xtch+JQFz5zb14dGqlshmmDAFBFEWmeIpf7wVqWV+w7Emj7jRgkNJakyKE0tYQ==",
+      "dependencies": [
         "zod"
       ],
       "optionalPeers": [
@@ -771,7 +821,7 @@
       "jsr:@std/toml@1.0.11",
       "npm:@langchain/anthropic@0.3.34",
       "npm:@langchain/core@0.3.80",
-      "npm:@langchain/deepseek@^0.0.1",
+      "npm:@langchain/deepseek@0.1.0",
       "npm:@langchain/google-genai@0.1.12",
       "npm:@langchain/ollama@0.2.4",
       "npm:@langchain/openai@0.4.9",
