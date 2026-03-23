@@ -11,6 +11,12 @@ To be released.
 
  -  Added model `gemma3`. [[#2] by Juil Kim]
 
+ -  Refreshed the supported model catalog to track current provider offerings,
+    including newer Claude 4, Gemini 2.5, and GPT-5 family models.
+
+ -  Older configured model names remain accepted and are automatically mapped
+    to the current canonical model names when settings are loaded or updated.
+
 [#2]: https://github.com/dahlia/yoyak/pull/2
 
 
