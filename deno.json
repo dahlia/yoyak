@@ -26,7 +26,7 @@
     "@std/fs": "jsr:@std/fs@^1.0.11",
     "@std/io": "jsr:@std/io@^0.225.2",
     "@std/path": "jsr:@std/path@1.1.4",
-    "@std/toml": "jsr:@std/toml@^1.0.2",
+    "@std/toml": "jsr:@std/toml@1.0.11",
     "chardet": "npm:chardet@^2.0.0",
     "cheerio": "npm:cheerio@^1.0.0",
     "iconv-lite": "npm:iconv-lite@^0.6.3",
