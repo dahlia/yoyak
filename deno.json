@@ -13,7 +13,7 @@
   "imports": {
     "@cliffy/command": "jsr:@cliffy/command@1.0.0",
     "@cliffy/prompt": "jsr:@cliffy/prompt@1.0.0",
-    "@david/dax": "jsr:@david/dax@^0.42.0",
+    "@david/dax": "jsr:@david/dax@0.45.0",
     "@hongminhee/iso639-1": "jsr:@hongminhee/iso639-1@^1.3.20090901",
     "@langchain/anthropic": "npm:@langchain/anthropic@^0.3.12",
     "@langchain/core": "npm:@langchain/core@^0.3.37",
